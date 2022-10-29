@@ -9,6 +9,6 @@ fn check() {
         // .current_dir("exercises/")
         .assert()
         .success()
-        .stdout(predicates::str::contains("总的题目数"))
+        .stdout("rust test 完成") // predicates::str::contains("总的题目数")
         ;
 }
