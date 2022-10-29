@@ -1,0 +1,23 @@
+name: OSAutograding
+description: "OSAutograding is adapted from education/autograding. It only serves for os course teaching."
+author: "@yufeng"
+inputs:
+  token:
+    description: >
+      GitHub token used to check repository content and provide feedback. By default, 
+      this uses the repository token provided by GitHub Actions. You can customize this
+      by replacing this token with a user token which has write-access to your repository. 
+      Note that the token will be accessible to all repository collaborators.
+    default: ${{ github.token }}
+  outputFile:
+    description: >
+      outputFile used by custom script to compare and get grade.
+    default: output.txt
+
+  scriptPath:
+    description: >
+      default scripts path
+    default: .github/classroom
+runs:
+  using: "node16"
+  main: "./dist/index.js"

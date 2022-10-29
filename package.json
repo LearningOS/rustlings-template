@@ -1,0 +1,38 @@
+{
+  "name": "os-autograding",
+  "version": "1.0.0",
+  "description": "A set of actions for autograding assignments with GitHub Classroom",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc --noEmit && ncc build nodesrc/autograding.ts -o dist",
+    "test": "tsc --noEmit && jest",
+    "start": "npm run build && node ."
+  },
+  "keywords": [
+    "github",
+    "education",
+    "classroom",
+    "autograding"
+  ],
+  "author": "yufeng",
+  "license": "ISC",
+  "dependencies": {
+    "@actions/core": "^1.2.2",
+    "@actions/github": "^2.1.1",
+    "axios": "^0.27.2",
+    "tree-kill": "^1.2.2",
+    "uuid": "^7.0.1"
+  },
+  "devDependencies": {
+    "@types/jest": "^25.1.1",
+    "@types/nock": "^11.1.0",
+    "@types/node": "^13.5.3",
+    "@types/uuid": "^7.0.0",
+    "@zeit/ncc": "^0.21.0",
+    "jest": "^25.1.0",
+    "nock": "^11.7.2",
+    "prettier": "^1.19.1",
+    "ts-jest": "^25.1.0",
+    "typescript": "^3.7.5"
+  }
+}
