@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc --noEmit && ncc build nodesrc/autograding.ts -o dist",
     "test": "tsc --noEmit && jest",
-    "start": "node ."
+    "start": "npm run build && node ."
   },
   "keywords": [
     "github",
