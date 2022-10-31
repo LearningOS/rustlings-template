@@ -173,7 +173,7 @@ async fn main() {
     }
 
     let toml_str = &fs::read_to_string("info.toml").unwrap();
-    let exercises = toml::from_str::<ExerciseList>(toml_str).unwrap().exercises;
+    let mut exercises = toml::from_str::<ExerciseList>(toml_str).unwrap().exercises;
     let verbose = args.nocapture;
     println!("args: {:?}", args);
 
@@ -262,6 +262,8 @@ async fn main() {
         }
 
         Subcommands::MyVerify(_subargs) => {
+            let toml_str = &fs::read_to_string("check.toml").unwrap();
+            exercises = toml::from_str::<ExerciseList>(toml_str).unwrap().exercises;
             let now_start = SystemTime::now().duration_since(UNIX_EPOCH).unwrap().as_secs();
             let rights = Arc::new(Mutex::new(0));
             let alls = exercises.len();

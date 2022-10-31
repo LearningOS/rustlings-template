@@ -19,17 +19,19 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Build
-      run: cargo build --verbose
+    - name: checkouttoml
+      run: curl -o check.toml https://github.com/livstyle/os-autograding-rust/blob/main/check.toml
+    # - name: Build
+    #   run: cargo build --release --verbose
     - name: Run tests
       run: cargo test --test check --verbose
     - name: upload result
-      uses: actions/upload-artifact@v1
+      uses: actions/upload-artifact@v3
       with:
         name: check_result
         path: ${{ github.workspace }}/.github/result/check_result.json
     - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
+      uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
     - run: npm install
