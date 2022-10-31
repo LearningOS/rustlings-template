@@ -26,16 +26,7 @@ jobs:
     #   run: cargo build --release --verbose
     - name: Run tests
       run: cargo test --test check --verbose
-    - name: upload result
-      uses: actions/upload-artifact@v3
-      with:
-        name: check_result
-        path: ${{ github.workspace }}/.github/result/check_result.json
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
     - uses: yfblock/os-autograding@master
       id: autograding
       with:
-        outputFile: output.txt
+        outputFile: .github/result/check_result.json

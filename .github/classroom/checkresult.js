@@ -3,6 +3,7 @@
 const jsonResult = require('../result/check_result.json'); 
 
 function judge(outputFile) {
+    console.log(outputFile);
     let points = {};
     jsonResult.exercises.forEach(({ name, result }) => {
         if (result) {
