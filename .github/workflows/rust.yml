@@ -1,4 +1,4 @@
-name: Rustlings Tests
+name: Rustlings Grading
 
 on:
   push:
