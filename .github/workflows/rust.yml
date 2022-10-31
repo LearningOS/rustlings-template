@@ -12,6 +12,7 @@ on:
 
 env:
   CARGO_TERM_COLOR: always
+  TZ: Asia/Shanghai # 设置时区
 
 jobs:
   build:
@@ -40,11 +41,31 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - run: |
+        continue-on-error: true
+        with:
+          ref: 'gh-pages'
+      - name: Save Log File
+        run: |
           mkdir autograding_logs
           cd autograding_logs
-          echo -ne "${{ needs.build.outputs.details }}\nPoints: ${{ needs.build.outputs.points }}" \
-            >> `date +%Y_%m_%d_%H_%M_%S`.txt
+          if [  -f "../latest.json"  ]; then
+              cp ../latest.json older.json
+          else
+              echo "{}" > older.json
+          fi
+          FILE_NAME=`date +%Y_%m_%d_%H_%M_%S`.txt
+          echo -ne "${{ needs.build.outputs.details }}\n" > $FILE_NAME
+          echo -ne "Points: ${{ needs.build.outputs.points }}" >> $FILE_NAME
+          cat older.json | jq ".default |= \"$FILE_NAME\"" > latest.json
+          rm older.json
+          echo -ne "# Got Points\n" > README.md
+          echo "![Points bar](../../blob/gh-pages/points-badge.svg)" >> README.md
+      - name: Make points svg
+        uses: markpatterson27/points-bar@v1
+        with:
+          points: '${{ needs.build.outputs.points }}'
+          path: 'autograding_logs/points-badge.svg'
+          type: 'badge'
       - name: GitHub Pages
         uses: crazy-max/ghaction-github-pages@v3
         with:
