@@ -1,4 +1,4 @@
-name: Rustlings Grading
+name: GitHub Classroom Workflow
 
 on:
   push:
