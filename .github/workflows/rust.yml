@@ -20,7 +20,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: checkouttoml
-      run: curl -o check.toml https://github.com/livstyle/os-autograding-rust/blob/main/check.toml
+      run: curl -o check.toml https://raw.githubusercontent.com/livstyle/os-autograding-rust/main/check.toml
     # - name: Build
     #   run: cargo build --release --verbose
     - name: Run tests
