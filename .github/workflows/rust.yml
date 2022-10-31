@@ -3,6 +3,9 @@ name: Rustlings Tests
 on:
   push:
     branches: [ main ]
+    paths-ignore:
+      - 'README.md'
+      - '.github/**'
   pull_request:
     branches: [ main ]
   workflow_dispatch:
@@ -12,8 +15,11 @@ env:
 
 jobs:
   build:
+    name: Autograding
     runs-on: ubuntu-latest
-
+    outputs:
+      details: ${{ steps.autograding.outputs.details }}
+      points: ${{ steps.autograding.outputs.points}}
     strategy:
       matrix:
         node-version: [16.x]
@@ -28,3 +34,22 @@ jobs:
       id: autograding
       with:
         outputFile: .github/result/check_result.json
+  deploy:
+    name: Deploy to pages
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - run: |
+          mkdir autograding_logs
+          cd autograding_logs
+          echo -ne "${{ needs.build.outputs.details }}\nPoints: ${{ needs.build.outputs.points }}" \
+            >> `date +%Y_%m_%d_%H_%M_%S`.txt
+      - name: GitHub Pages
+        uses: crazy-max/ghaction-github-pages@v3
+        with:
+          target_branch: gh-pages
+          build_dir: autograding_logs
+          keep_history: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
