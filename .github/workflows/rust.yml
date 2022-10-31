@@ -38,4 +38,4 @@ jobs:
     - uses: yfblock/os-autograding@master
       id: autograding
       with:
-        outputFile: qemu_run_output.txt
+        outputFile: output.txt
