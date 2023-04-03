@@ -1,5 +1,5 @@
 # 2023 春夏季 OS 训练营 
-## Rustlings 集训班 github classroom 地址：<https://classroom.github.com/a/U37u3veU>
+## Rustlings 集训班 github classroom 地址：<https://classroom.github.com/a/H1iQ2GNX>
 
 # rustlings 🦀❤️
 
